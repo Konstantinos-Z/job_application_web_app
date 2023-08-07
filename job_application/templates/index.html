@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h1 class="mt-4 mb-4">Job Application Form</h1>
 <form method="post">
     {% csrf_token %}
@@ -45,4 +46,5 @@
     </div>
     {% endif %}
 </form>
+
 {% endblock %}

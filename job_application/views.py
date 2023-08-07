@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import ApplicationForm
+from .forms import ApplicationForm, EnquiryForm
 from .models import Form
 from django.contrib import messages
 from django.core.mail import EmailMessage
@@ -33,9 +33,21 @@ def index(request):
     return render(request, "index.html")
 
 
+def contact(request):
+    if request.method == "POST":
+        form = EnquiryForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            enquiry = form.cleaned_data["enquiry"]
+
+            message_body = f"Enquiry: {enquiry}\nContact Email: {email}"
+            email_message = EmailMessage(f"New enquiry by {email}", message_body,
+                                         to=["zigouris.konstantinos@gmail.com"])
+            email_message.send()
+
+            messages.success(request, "Enquiry submitted successfully!")
+    return render(request, 'contact.html')
+
+
 def about(request):
     return render(request, 'about.html')
-
-
-def contact(request):
-    return render(request, 'contact.html')

@@ -7,3 +7,8 @@ class ApplicationForm(forms.Form):
     email = forms.EmailField()
     date = forms.DateField()
     occupation = forms.CharField(max_length=80)
+
+
+class EnquiryForm(forms.Form):
+    email = forms.EmailField()
+    enquiry = forms.CharField(max_length=999)
